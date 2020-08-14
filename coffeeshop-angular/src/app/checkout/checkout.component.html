@@ -1,0 +1,13 @@
+
+
+<!-- Sign in or guest checkout -->
+
+<div>
+    <!-- Guest checkout -->
+
+    <mat-form-field #firstName appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput #first placeholder="Ian" type="text">
+        <mat-error *ngIf="!first.length">Required</mat-error>
+    </mat-form-field>
+</div>

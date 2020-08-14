@@ -1,0 +1,10 @@
+<h3>Cart:</h3>
+
+<h2>Single items:</h2>
+<div *ngIf="getItemCart().length">
+    <li *ngFor="let item of getItemCart()">
+        {{item.name}}
+    </li>
+</div>
+
+<button [routerLink]="'/checkout'"> Checkout</button>

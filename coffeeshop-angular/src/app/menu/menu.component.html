@@ -1,0 +1,75 @@
+
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Sandwiches">
+                
+                <div *ngIf="sandwiches.length">
+                    <li *ngFor="let sandwich of sandwiches">
+                        {{sandwich.name}}
+                        <div>
+                            <button mat-button (click)="addMenuItemToCart(sandwich)">Add to cart</button>
+                        </div>
+                    </li>
+                </div>
+                
+            </mat-tab>
+            <mat-tab label="Drinks">
+                <div *ngIf="drinks.length">
+                    <li *ngFor="let drink of drinks; let i = index">
+                        {{drink.name}}
+                        <div>
+                            <button mat-button [matMenuTriggerFor]="menu">Size: {{drink.currentSize}}</button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item *ngFor="let size of drink.productOptions" 
+                                (click)="drinks[i].currentSize = size[0]">{{size[0]}}</button>
+                                
+                            </mat-menu>
+                            <button mat-button (click)="addMenuItemToCart(drink)">Add to cart</button>
+
+                            <div *ngIf="drink.type ==='HC' || 'IC'">
+                                <div>
+                                    <!-- matMenuTriggerFor will trigger a menuID, "menu1" and we define it right belo #menu1 -->
+                                    <button mat-button [matMenuTriggerFor]="menu1">Creams: {{drink.creams}}</button>
+                                    <mat-menu #menu1="matMenu">
+                                        <button mat-menu-item *ngFor="let cream of [1,2,3,4];" (click)="drink.creams=cream;">{{cream}}</button>    
+                                    </mat-menu>
+                                </div>
+    
+                                <div>
+                                    <button mat-button [matMenuTriggerFor]="menu2">Sugars: {{drink.sugars}}</button>
+                                    <mat-menu #menu2="matMenu">
+                                        <button mat-menu-item *ngFor="let sugar of [1,2,3,4];" (click)="drink.sugars=sugar;">{{sugar}}</button>
+                                    
+                                    </mat-menu>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </li>
+                </div>
+                
+            </mat-tab>
+            <!-- <mat-tab label="Meals">Meals</mat-tab> -->
+            <mat-tab label="Pastries"> 
+                <div *ngIf="pastries.length">
+                    <li *ngFor="let pastry of pastries">
+                        {{pastry.name}}
+                        <button mat-button (click)="addMenuItemToCart(pastry)">Add to cart</button>
+                    </li>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <app-cart></app-cart>
+        
+    </mat-grid-tile>
+
+  </mat-grid-list>
+  
+  
+
