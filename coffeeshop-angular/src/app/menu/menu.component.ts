@@ -76,7 +76,7 @@ export class MenuComponent implements OnInit {
 
   /**
    * 
-   * When combo meals are eventually possible
+   * When combo meals are offered alongside individual item purchases 
    */
   addComboToCart(){
 

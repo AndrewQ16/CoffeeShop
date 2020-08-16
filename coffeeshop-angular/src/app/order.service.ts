@@ -31,6 +31,9 @@ export class OrderService {
 
   all_values = combineLatest(this.menuService.getMenu(), this.menuService.getMeals(), this.menuService.getMealCombinations());
 
+  // Total cost of the order
+  total: number = 0;
+
   ngOnInit(): void {
 
     this.all_values.subscribe(values => {
@@ -38,16 +41,30 @@ export class OrderService {
       this.meals = values[1];
       this.mealCombinations = values[2];
     });
+
+    this.getTotal();
   }
 
   addItemToCart(item: Menu){
     //add a shallow copy of the item to the cart
     this.orderItems.push(this.deepCopy(item));
     console.log(this.orderItems);
+    return this.total += item.price;
   }
 
   getItemCart() {
     return this.orderItems;
+  }
+
+  removeItemFromCart(item: Menu) {
+    this.total -=item.price;
+    
+    const index = this.orderItems.indexOf(item);
+    if (index >= 0) {
+      this.orderItems.splice(index, 1);
+    }
+    
+    return this.total
   }
 
   /**
@@ -86,5 +103,9 @@ export class OrderService {
     }
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
+  }
+
+  getTotal() {
+    return this.total;
   }
 }

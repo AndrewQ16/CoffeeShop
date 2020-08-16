@@ -7,7 +7,34 @@
 
     <mat-form-field #firstName appearance="fill">
         <mat-label>First Name</mat-label>
-        <input matInput #first placeholder="Ian" type="text">
-        <mat-error *ngIf="!first.length">Required</mat-error>
+        <input matInput required [(ngModel)]="fname"  #first="ngModel" placeholder="Pierre" type="text">
+        <!-- The condition below requires 'invalid' to be there too, otherwise the error will still appear even if there is a field -->
+        <mat-error *ngIf="first.invalid && (first.dirty || first.touched) && first.errors.required">Required</mat-error>
     </mat-form-field>
+
+    <br>
+    <mat-form-field #lastName appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput required [(ngModel)]="lname" #last="ngModel" placehold="Aubamayang" type="text">
+        <!-- This way to check also works well to display the error. Will keep it this way for reference -->
+        <mat-error *ngIf="!last.length">Required</mat-error>
+    </mat-form-field>
+
+    <br>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput required email pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="email" #_email="ngModel" type="email">
+
+        <mat-error 
+        *ngIf="_email.invalid && (_email.dirty || _email) && _email.errors.email">Required</mat-error>
+
+    </mat-form-field>
+</div>
+
+<!-- Display Current order -->
+<div>
+    <app-cart></app-cart>
+
+    <!-- Disable button once clicked to process order but if order fails then provide some error handling. -->
+    <button>Place order.</button>
 </div>

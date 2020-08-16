@@ -1,10 +1,24 @@
 <h3>Cart:</h3>
 
-<h2>Single items:</h2>
+<!--This header is when we eventually add the ability to  view combo items 
+    <h2>Single items:</h2> -->
 <div *ngIf="getItemCart().length">
     <li *ngFor="let item of getItemCart()">
-        {{item.name}}
+        {{item.name}} 
+        <div *ngIf="item.type == 'HC' || item.type == 'IC'">
+            Size: {{item.currentSize}}
+            Creams: {{item.creams}}, Sugars: {{item.sugars}}
+        </div>
+        <div>
+            Price: {{item.price | currency}}
+        </div>
+        
+        <div>
+            <button mat-button (click)="removeItemFromCart(item)">Remove</button>
+        </div>
+
+        <br>
     </li>
 </div>
 
-<button [routerLink]="'/checkout'"> Checkout</button>
+Total: {{getTotal() | currency}}

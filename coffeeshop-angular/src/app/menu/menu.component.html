@@ -65,7 +65,14 @@
         </mat-tab-group>
     </mat-grid-tile>
     <mat-grid-tile>
-        <app-cart></app-cart>
+        <div>
+            <app-cart></app-cart>
+        </div>
+        
+        <div>
+            <button [routerLink]="'/checkout'"> Checkout</button>
+        </div>
+        
         
     </mat-grid-tile>
 
