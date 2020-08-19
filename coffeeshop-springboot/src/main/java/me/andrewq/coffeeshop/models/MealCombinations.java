@@ -1,4 +1,4 @@
-package me.andrewq.coffeeshop.menu_items;
+package me.andrewq.coffeeshop.models;
 
 
 public class MealCombinations {

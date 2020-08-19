@@ -6,11 +6,11 @@
     <li *ngFor="let item of getItemCart()">
         {{item.name}} 
         <div *ngIf="item.type == 'HC' || item.type == 'IC'">
-            Size: {{item.currentSize}}
+            Size: {{item.size}}
             Creams: {{item.creams}}, Sugars: {{item.sugars}}
         </div>
         <div>
-            Price: {{item.price | currency}}
+            Price: {{item.cost | currency}}
         </div>
         
         <div>

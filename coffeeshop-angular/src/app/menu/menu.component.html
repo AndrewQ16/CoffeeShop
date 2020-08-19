@@ -8,6 +8,8 @@
                 <div *ngIf="sandwiches.length">
                     <li *ngFor="let sandwich of sandwiches">
                         {{sandwich.name}}
+                        <br>
+                        {{sandwich.price | currency}}
                         <div>
                             <button mat-button (click)="addMenuItemToCart(sandwich)">Add to cart</button>
                         </div>

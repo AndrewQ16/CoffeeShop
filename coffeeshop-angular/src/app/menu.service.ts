@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { MealCombinations} from './menu_items/mealCombinations';
-import { Menu } from './menu_items/menu';
-import { Meals } from './menu_items/meals';
+import { MealCombinations} from './models/mealCombinations';
+import { Menu } from './models/menu';
+import { Meals } from './models/meals';
 
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map, tap, shareReplay } from 'rxjs/operators'

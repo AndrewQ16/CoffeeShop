@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Item } from '../models/item'
 import { MenuService } from '../menu.service';
 import { OrderService } from '../order.service';
-import { Menu } from '../menu_items/menu';
+import { Menu } from '../models/menu';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +19,7 @@ export class CartComponent implements OnInit {
       
   }
 
-  getTotal() {
+  getTotal(): number {
     return this.orderService.getTotal();
   }
 
@@ -26,7 +27,7 @@ export class CartComponent implements OnInit {
     return this.orderService.getItemCart(); 
   }
 
-  removeItemFromCart(item: Menu){
+  removeItemFromCart(item: Item){
     this.orderService.removeItemFromCart(item);
   }
 

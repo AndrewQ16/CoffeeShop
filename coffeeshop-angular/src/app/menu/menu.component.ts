@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MealCombinations } from '../menu_items/mealCombinations';
-import { Menu } from '../menu_items/menu';
-import { Meals } from '../menu_items/meals';
+import { MealCombinations } from '../models/mealCombinations';
+import { Menu } from '../models/menu';
+import { Meals } from '../models/meals';
 import { MenuService } from '../menu.service';
 import { OrderService } from '../order.service';
 
@@ -71,7 +71,7 @@ export class MenuComponent implements OnInit {
   addMenuItemToCart(item: Menu) {
     
     this.orderService.addItemToCart(item);
-    console.log("Added: " + item.name);
+
   }
 
   /**

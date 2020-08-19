@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Confirmation } from '../models/confirmation';
 import { MenuService } from '../menu.service';
 import { OrderService } from '../order.service';
-import { Menu } from '../menu_items/menu';
-import { HttpClient } from '@angular/common/http';
+import { Menu } from '../models/menu';
+import { Item } from '../models/item';
+import { Orders } from '../models/orders'
 
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -21,15 +25,19 @@ export class CheckoutComponent implements OnInit {
 
   email: string = "";
 
+  confirmation: Observable<Confirmation>;
+
   ngOnInit(): void {
     
   }
 
+
   /**
    * Submit the order as a post request to the backend and return the order details for the customer and ability
    */
-  submitOrder() {
-    this.http.post
+  guestOrder(){
+    this.confirmation = this.orderService.guestOrder(this.fname, this.lname, this.email);
+    this.confirmation.subscribe(x => console.log(x));
   }
 
 }

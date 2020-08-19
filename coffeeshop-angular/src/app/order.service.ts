@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { MealCombinations } from './menu_items/mealCombinations';
-import { Menu } from './menu_items/menu';
-import { Meals } from './menu_items/meals';
+import { Confirmation } from './models/confirmation'
+import { Item } from './models/item'
+import { MealCombinations } from './models/mealCombinations';
+import { Menu } from './models/menu';
+import { Meals } from './models/meals';
 import { MenuService } from './menu.service';
 import { combineLatest } from 'rxjs';
+import { HttpBackend, HttpClient } from '@angular/common/http';
+import { Orders } from './models/orders';
 
 
 @Injectable({
@@ -12,7 +16,7 @@ import { combineLatest } from 'rxjs';
 })
 export class OrderService {
 
-  constructor(private menuService: MenuService) { }
+  constructor(private menuService: MenuService, private http: HttpClient) { }
 
   //Information about unique items
   menu: Menu[];
@@ -24,7 +28,7 @@ export class OrderService {
   mealCombinations: MealCombinations[];
 
   //items in the cart that are singles and not combos
-  orderItems: Menu[] = [];
+  orderItems: Item[] = [];
 
   //items in the cart that are part of combos
   orderCombos: MealCombinations[] = [];
@@ -33,6 +37,17 @@ export class OrderService {
 
   // Total cost of the order
   total: number = 0;
+
+  //first name
+  fname: string;
+
+  //lst name
+  lname: string;
+
+  email: string;
+
+  //Eventually move this url to a settings file or somewhere where only one change needs to be made
+  url = "http://localhost:8080";
 
   ngOnInit(): void {
 
@@ -47,17 +62,17 @@ export class OrderService {
 
   addItemToCart(item: Menu){
     //add a shallow copy of the item to the cart
-    this.orderItems.push(this.deepCopy(item));
-    console.log(this.orderItems);
-    return this.total += item.price;
+    var it = this.toItem(item)
+    this.orderItems.push(it);
+    return this.total+= it.cost;
   }
 
-  getItemCart() {
+  getItemCart(): Item[] {
     return this.orderItems;
   }
 
-  removeItemFromCart(item: Menu) {
-    this.total -=item.price;
+  removeItemFromCart(item: Item) {
+    this.total -=item.cost;
     
     const index = this.orderItems.indexOf(item);
     if (index >= 0) {
@@ -67,45 +82,44 @@ export class OrderService {
     return this.total
   }
 
-  /**
-   * A deep copy function I found on stackoverflow
-   * @param obj 
-   */
-  deepCopy(obj) {
-    var copy;
+  
 
-    // Handle the 3 simple types, and null or undefined
-    if (null == obj || "object" != typeof obj) return obj;
+  toItem(menuItem: Menu): Item {
 
-    // Handle Date
-    if (obj instanceof Date) {
-        copy = new Date();
-        copy.setTime(obj.getTime());
-        return copy;
-    }
-
-    // Handle Array
-    if (obj instanceof Array) {
-        copy = [];
-        for (var i = 0, len = obj.length; i < len; i++) {
-            copy[i] = this.deepCopy(obj[i]);
+    var item: Item = {productId:menuItem.productId, 
+                      name:menuItem.name, 
+                      cost:menuItem.price, 
+                      type:menuItem.type, 
+                      size:"N",
+                      creams:0,
+                      sugars:0};
+    
+    if (item.type === 'HC' || item.type === 'IC') {
+      
+      item.size = menuItem.currentSize;
+      item.sugars = menuItem.sugars;
+      item.creams = menuItem.creams;
+      for(var size of menuItem.productOptions){
+        if (size[0] === menuItem.currentSize) {
+          item.cost =+size[1];
+          
         }
-        return copy;
+      }
+    } else {
+      
+      item.cost = menuItem.price;
     }
-
-    // Handle Object
-    if (obj instanceof Object) {
-        copy = {};
-        for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = this.deepCopy(obj[attr]);
-        }
-        return copy;
-    }
-
-    throw new Error("Unable to copy obj! Its type isn't supported.");
+  
+    return item;
   }
 
   getTotal() {
     return this.total;
   }
+
+  guestOrder(fname: string, lname: string, email: string){
+    var order: Orders = {fname:fname, lname:lname, email: email, isMember:false, items: this.orderItems}
+
+    return this.http.post<Confirmation>(`${this.url}/guestOrder`, order, {responseType:"json"});
+  } 
 }

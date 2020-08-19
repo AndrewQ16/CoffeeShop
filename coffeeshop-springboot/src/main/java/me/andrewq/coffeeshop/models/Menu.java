@@ -1,4 +1,4 @@
-package me.andrewq.coffeeshop.menu_items;
+package me.andrewq.coffeeshop.models;
 
 
 
@@ -24,6 +24,30 @@ public class Menu {
 
     private String type;
 
+    // These 3 variables belong to drinks. The creams and sugars more so for coffees
+    private String currentSize;
+
+    private Integer creams;
+
+    private Integer sugars;
+
+    public Menu(){
+
+    }
+
+
+    public Menu(int productId, String name, double price, String[][] productOptions, String type, String currentSize, Integer creams, Integer sugars) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.productOptions = productOptions;
+        this.type = type;
+        this.currentSize = currentSize;
+        this.creams = creams;
+        this.sugars = sugars;
+    }
+
+
 
     public Menu(int productId, String name, double price, String productOptions, String type){
         this.productId = productId;
@@ -33,6 +57,11 @@ public class Menu {
         this.type = type;
     }
 
+    /**
+     * Used for converting the product options which is a key-value pair seperated by a ',' into a 2D array
+     * @param options
+     * @return
+     */
     private String[][] convertOptions(String options) {
         String[] optionPairs = options.split(",");
 
@@ -73,6 +102,7 @@ public class Menu {
         this.price = price;
     }
 
+
     public String[][] getProductOptions() {
         return this.productOptions;
     }
@@ -80,6 +110,7 @@ public class Menu {
     public void setProductOptions(String[][] productOptions) {
         this.productOptions = productOptions;
     }
+    
 
     public String getType() {
         return this.type;
@@ -89,7 +120,36 @@ public class Menu {
         this.type = type;
     }
 
-    
 
+    public String getCurrentSize() {
+        return this.currentSize;
+    }
+
+    public void setCurrentSize(String currentSize) {
+        this.currentSize = currentSize;
+    }
+
+    public Integer getCreams() {
+        return this.creams;
+    }
+
+    public void setCreams(Integer creams) {
+        this.creams = creams;
+    }
+
+    public Integer getSugars() {
+        return this.sugars;
+    }
+
+    public void setSugars(Integer sugars) {
+        this.sugars = sugars;
+    }
+
+    
+    @Override
+    public String toString(){
+
+        return String.format("{productId: %d, name: %s}", this.productId, this.name);
+    }
 
 }
