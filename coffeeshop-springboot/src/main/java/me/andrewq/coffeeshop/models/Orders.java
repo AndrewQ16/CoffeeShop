@@ -14,8 +14,25 @@ public class Orders {
 
     private Boolean isMember;
 
+    
+
     public Orders() {
 
+    }
+
+    /**
+     * Parse the order and organize into the correct formate for the table
+     * @return
+     */
+    public String listToString() {
+
+        String retVal = "";
+
+        for(Item item: this.items){
+            
+        }
+
+        return null;
     }
 
 

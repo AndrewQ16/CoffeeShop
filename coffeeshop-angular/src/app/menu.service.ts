@@ -21,15 +21,15 @@ export class MenuService {
         shareReplay(1)
       );
 
-    this.meals$ = this.http.get<Meals[]>(`${this.url}/meals`)
-      .pipe(
-        shareReplay(1)
-      );
+    // this.meals$ = this.http.get<Meals[]>(`${this.url}/meals`)
+    //   .pipe(
+    //     shareReplay(1)
+    //   );
 
-    this.menuCombinations$ = this.http.get<MealCombinations[]>(`${this.url}/meal_combinations`)
-			.pipe(
-				shareReplay(1)
-			);
+    // this.menuCombinations$ = this.http.get<MealCombinations[]>(`${this.url}/meal_combinations`)
+		// 	.pipe(
+		// 		shareReplay(1)
+		// 	);
   }
 
   httpOptions = {

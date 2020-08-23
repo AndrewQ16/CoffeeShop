@@ -6,11 +6,12 @@
     <li *ngFor="let item of getItemCart()">
         {{item.name}} 
         <div *ngIf="item.type == 'HC' || item.type == 'IC'">
-            Size: {{item.size}}
-            Creams: {{item.creams}}, Sugars: {{item.sugars}}
+            Size: {{item.chosenOptions[0][1]}}
+            Creams: {{item.chosenOptions[1][1]}}, Sugars: {{item.chosenOptions[2][1]}}
         </div>
         <div>
-            Price: {{item.cost | currency}}
+            Quantity: {{item.quantity}}
+            Price: {{item.totalCost | currency}}
         </div>
         
         <div>

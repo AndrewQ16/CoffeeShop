@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
     return this.orderService.getTotal();
   }
 
-  getItemCart() {
+  getItemCart(): Item[] {
     return this.orderService.getItemCart(); 
   }
 

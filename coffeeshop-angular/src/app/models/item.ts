@@ -7,13 +7,28 @@ export interface Item {
 
     type: string;
 
-    // drink options
+    quantity: number;
 
-    size: string;
+    totalCost: number;
 
-    creams: number;
+    /**
+     * Options formatting:
+     * (Mainly for drinks but if I can think of anything for Foods, I can post it here.)
+     * 
+     * Drink format:
+     * [
+     *  ["size", "N,S,M,L"],
+     *  ["creams", #],
+     *  ["sugars", #]
+     * ]
+     * 
+     * Food format (no need):
+     * [
+     *  []
+     * ]
+     */
 
-    sugars: number;
+    chosenOptions: string[][];
 
     
 }

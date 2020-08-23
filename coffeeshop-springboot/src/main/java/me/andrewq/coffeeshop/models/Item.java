@@ -14,7 +14,13 @@ public class Item {
 
     private String type;
 
+    private Integer quantity;
+
+    private Double totalCost;
+
     private String[][] chosenOptions;
+
+    
 
     public Item() {
 
@@ -60,5 +66,25 @@ public class Item {
     public void setChosenOptions(String[][] chosenOptions) {
         this.chosenOptions = chosenOptions;
     }
+
+
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+
+    public Double getTotalCost() {
+        return this.totalCost;
+    }
+
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+
 
 }

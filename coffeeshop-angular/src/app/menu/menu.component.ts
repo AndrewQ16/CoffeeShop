@@ -36,14 +36,16 @@ export class MenuComponent implements OnInit {
 
   mealCombinations: MealCombinations[];
 
-  all_values = combineLatest(this.menuService.getMenu(), this.menuService.getMeals(), this.menuService.getMealCombinations());
+  // all_values = combineLatest(this.menuService.getMenu(), this.menuService.getMeals(), this.menuService.getMealCombinations());
+
+  all_values = combineLatest(this.menuService.getMenu());
 
   ngOnInit(): void {
 
     this.all_values.subscribe(values => {
       this.menu = values[0];
-      this.meals = values[1];
-      this.mealCombinations = values[2];
+      // this.meals = values[1];
+      // this.mealCombinations = values[2];
 
       this.organizeMenu();
     });

@@ -62,6 +62,11 @@ export class OrderService {
 
   addItemToCart(item: Menu){
     //add a shallow copy of the item to the cart
+
+    if(this.addQuantity(item)){
+      return this.total
+    }
+
     var it = this.toItem(item)
     this.orderItems.push(it);
     return this.total+= it.cost;
@@ -76,41 +81,78 @@ export class OrderService {
     
     const index = this.orderItems.indexOf(item);
     if (index >= 0) {
-      this.orderItems.splice(index, 1);
+
+      if(this.orderItems[index].quantity > 1){
+        this.orderItems[index].quantity--;
+        this.orderItems[index].totalCost-= this.orderItems[index].cost;
+      } else {
+        this.orderItems.splice(index, 1);
+      }
+
+      
     }
     
     return this.total
   }
 
   
-
+  /**
+   * Convert a Menu object to an Item object
+   * @param menuItem 
+   */
   toItem(menuItem: Menu): Item {
 
     var item: Item = {productId:menuItem.productId, 
                       name:menuItem.name, 
                       cost:menuItem.price, 
                       type:menuItem.type, 
-                      size:"N",
-                      creams:0,
-                      sugars:0};
+                      chosenOptions:[],
+                      quantity:1,
+                      totalCost: menuItem.price};
     
     if (item.type === 'HC' || item.type === 'IC') {
-      
-      item.size = menuItem.currentSize;
-      item.sugars = menuItem.sugars;
-      item.creams = menuItem.creams;
-      for(var size of menuItem.productOptions){
-        if (size[0] === menuItem.currentSize) {
-          item.cost =+size[1];
-          
-        }
-      }
+ 
+      item.chosenOptions.push(["size", menuItem.currentSize.toString()]);
+
+      item.chosenOptions.push(["creams", menuItem.sugars.toString()]);
+
+      item.chosenOptions.push(["sugars", menuItem.creams.toString()]);
+
+      item.cost = +this.getCostOfSize(menuItem);
     } else {
       
       item.cost = menuItem.price;
     }
   
     return item;
+  }
+
+  addQuantity(menuItem: Menu): boolean {
+
+    if(menuItem.type === 'HC' || menuItem.type === 'IC') {
+      for(var item of this.orderItems) {
+        if(menuItem.productId === item.productId && menuItem.type === item.type && menuItem.currentSize === item.chosenOptions[0][1] && 
+          menuItem.creams === +item.chosenOptions[1][1] && menuItem.sugars === +item.chosenOptions[2][1]){
+            item.quantity++;
+            item.totalCost+= item.cost;
+            this.total += item.cost;
+            return true;
+        }
+      }
+    } else {
+
+      for(var item of this.orderItems) {
+        if(menuItem.productId === item.productId && menuItem.type === item.type){
+          item.quantity++;
+          item.totalCost+= item.cost;
+          this.total+= item.cost;
+          return true;
+        }
+      }
+    }
+
+
+    return false;
   }
 
   getTotal() {
@@ -122,4 +164,14 @@ export class OrderService {
 
     return this.http.post<Confirmation>(`${this.url}/guestOrder`, order, {responseType:"json"});
   } 
+
+  
+
+  getCostOfSize(menuItem: Menu){
+    for(var size of menuItem.productOptions){
+      if (size[0] === menuItem.currentSize) {
+        return size[1]
+      }
+    }
+  }
 }
