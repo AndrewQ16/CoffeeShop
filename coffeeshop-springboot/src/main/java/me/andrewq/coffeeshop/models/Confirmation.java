@@ -12,22 +12,19 @@ public class Confirmation {
 
     private Boolean isOrderSaved;
 
-    private Boolean isProcessed;
-
     public Confirmation(){
 
     }
 
 
-    public Confirmation(String fname, String lname, String email, String orderNumber, Boolean isOrderSaved, Boolean isProcessed) {
+    public Confirmation(String fname, String lname, String email, String orderNumber, Boolean isOrderSaved) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.orderNumber = orderNumber;
         this.isOrderSaved = isOrderSaved;
-        this.isProcessed = isProcessed;
     }
-    
+
 
     public String getFname() {
         return this.fname;
@@ -61,6 +58,7 @@ public class Confirmation {
         this.orderNumber = orderNumber;
     }
 
+
     public Boolean isIsOrderSaved() {
         return this.isOrderSaved;
     }
@@ -73,17 +71,5 @@ public class Confirmation {
         this.isOrderSaved = isOrderSaved;
     }
 
-
-    public Boolean isIsProcessed() {
-        return this.isProcessed;
-    }
-
-    public Boolean getIsProcessed() {
-        return this.isProcessed;
-    }
-
-    public void setIsProcessed(Boolean isProcessed) {
-        this.isProcessed = isProcessed;
-    }
 
 }

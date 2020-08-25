@@ -10,6 +10,8 @@ export interface Orders {
 
     email: String;
 
-    isMember: Boolean;
+    date: Date;
+
+    isPayed: Boolean;
 
 }

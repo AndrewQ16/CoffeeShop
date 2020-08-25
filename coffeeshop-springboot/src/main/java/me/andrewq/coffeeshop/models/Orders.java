@@ -1,5 +1,6 @@
 package me.andrewq.coffeeshop.models;
 
+import java.util.Date;
 import java.util.List;
 
 public class Orders {
@@ -12,27 +13,12 @@ public class Orders {
 
     private String email;
 
-    private Boolean isMember;
+    private Date date;
 
-    
+    private Boolean isPayed;
 
     public Orders() {
 
-    }
-
-    /**
-     * Parse the order and organize into the correct formate for the table
-     * @return
-     */
-    public String listToString() {
-
-        String retVal = "";
-
-        for(Item item: this.items){
-            
-        }
-
-        return null;
     }
 
 
@@ -68,16 +54,27 @@ public class Orders {
         this.email = email;
     }
 
-    public Boolean isIsMember() {
-        return this.isMember;
+
+    public Date getDate() {
+        return this.date;
     }
 
-    public Boolean getIsMember() {
-        return this.isMember;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setIsMember(Boolean isMember) {
-        this.isMember = isMember;
+    public Boolean isIsPayed() {
+        return this.isPayed;
     }
+
+    public Boolean getIsPayed() {
+        return this.isPayed;
+    }
+
+    public void setIsPayed(Boolean isPayed) {
+        this.isPayed = isPayed;
+    }
+
+
 
 }
