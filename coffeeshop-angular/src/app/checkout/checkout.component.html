@@ -1,23 +1,61 @@
+<form #guestForm="ngForm" (ngSubmit) = "guestOrder()">
+    <div class="form-group">
+        <label for="fname">First name</label>
+        <input type="text" class="form-control" id="fname"
+            required
+            [(ngModel)]="guest.fname" name="fname"
+            #fname="ngModel">
+        <div [hidden]="fname.valid || fname.pristine"
+            class="alert alert-danger">
+            First name is required
+        </div>
+    </div>
 
+    <div class="form-group">
+        <label for="lname">Last name</label>
+        <input type="text" class="form-control" id="lname"
+            required
+            [(ngModel)]="guest.lname" name="lname"
+            #lname="ngModel">
+        <div [hidden]="lname.valid || lname.pristine"
+        class="alert alert-danger">
+        Last name is required
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email"
+            [(ngModel)]="guest.email" name="email"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            #email="ngModel">
+        <div [hidden]="email.valid || email.pristine" 
+        class="alert alert-danger">
+        Email is required
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-success" [disabled]="!guestForm.form.valid">Submit</button>
+</form>
 
 <!-- Sign in or guest checkout -->
 
-<div>
+<!-- <div>
     <!-- Guest checkout -->
-
-    <mat-form-field #firstName appearance="fill">
+    <!-- <mat-form-field #firstName appearance="fill">
         <mat-label>First Name</mat-label>
-        <input matInput required [(ngModel)]="fname"  #first="ngModel" placeholder="Pierre" type="text">
+        <input matInput required [(ngModel)]="fname"  #first="ngModel" placeholder="Pierre" type="text"> -->
         <!-- The condition below requires 'invalid' to be there too, otherwise the error will still appear even if there is a field -->
-        <mat-error *ngIf="first.invalid && (first.dirty || first.touched) && first.errors.required">Required</mat-error>
-    </mat-form-field>
+        <!-- <mat-error *ngIf="first.invalid && (first.dirty || first.touched) && first.errors.required">Required</mat-error>
+    </mat-form-field> -->
 
-    <br>
+    <!-- <br>
     <mat-form-field #lastName appearance="fill">
         <mat-label>Last Name</mat-label>
-        <input matInput required [(ngModel)]="lname" #last="ngModel" placehold="Aubamayang" type="text">
+        <input matInput required [(ngModel)]="lname" #last="ngModel" placehold="Aubamayang" type="text"> -->
         <!-- This way to check also works well to display the error. Will keep it this way for reference -->
-        <mat-error *ngIf="!last.length">Required</mat-error>
+        <!-- <mat-error *ngIf="!last.length">Required</mat-error>
     </mat-form-field>
 
     <br>
@@ -28,13 +66,13 @@
         <mat-error 
         *ngIf="_email.invalid && (_email.dirty || _email) && _email.errors.email">Required</mat-error>
 
-    </mat-form-field>
-</div>
+    </mat-form-field> -->
+    <!-- Disable button once clicked to process order but if order fails then provide some error handling. -->
+    <div>
+        <!-- <button type="submit" [disabled="!f.valid"]>Place order</button> -->
+    </div>
+<!-- </div> --
 
 <!-- Display Current order -->
-<div>
-    <app-cart></app-cart>
+<app-cart></app-cart>
 
-    <!-- Disable button once clicked to process order but if order fails then provide some error handling. -->
-    <button (click)="guestOrder()">Place order.</button>
-</div>

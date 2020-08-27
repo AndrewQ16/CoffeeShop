@@ -24,7 +24,7 @@ public class MenuController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path="/menu")
     public List<Menu> getMenu(){
-        
+        System.out.println("Querying menu and returning it");
         return jdbcTemplate.query(menuQuery, (rs, rowNum) -> new Menu(rs.getInt("product_id"), rs.getString("name"), rs.getDouble("price"),
             rs.getString("product_options"),rs.getString("type")));
 
