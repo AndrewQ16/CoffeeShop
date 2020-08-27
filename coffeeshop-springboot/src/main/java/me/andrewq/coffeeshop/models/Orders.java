@@ -75,11 +75,6 @@ public class Orders {
         this.isPayed = isPayed;
     }
 
-    @Override
-    public String toString(){
-        return "Fname:" + this.fname
-            + "\nLname:" + this.lName
-            + "\nEmail:" + this.email;
-    }
+
 
 }

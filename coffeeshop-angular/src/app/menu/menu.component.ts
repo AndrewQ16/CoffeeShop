@@ -44,6 +44,9 @@ export class MenuComponent implements OnInit {
 
     this.all_values.subscribe(values => {
       this.menu = values[0];
+      // this.meals = values[1];
+      // this.mealCombinations = values[2];
+
       this.organizeMenu();
     });
   }

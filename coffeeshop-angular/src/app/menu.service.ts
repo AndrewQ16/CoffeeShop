@@ -5,9 +5,8 @@ import { MealCombinations} from './models/mealCombinations';
 import { Menu } from './models/menu';
 import { Meals } from './models/meals';
 
-import { environment } from './../environments/environment';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { catchError, map, tap, shareReplay } from 'rxjs/operators';
+import { catchError, map, tap, shareReplay } from 'rxjs/operators'
 
 
 @Injectable({
@@ -38,8 +37,7 @@ export class MenuService {
   };
 
 	//Eventually move this url to a settings file or somewhere where only one change needs to be made
-  // url = "localhost:8080";
-  url = environment.apiUrl;
+  url = "http://localhost:8080";
 
   menu$ : Observable<Menu[]>;
 

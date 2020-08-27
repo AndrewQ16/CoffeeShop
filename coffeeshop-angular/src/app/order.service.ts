@@ -9,7 +9,6 @@ import { MenuService } from './menu.service';
 import { combineLatest } from 'rxjs';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Orders } from './models/orders';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -48,8 +47,7 @@ export class OrderService {
   email: string;
 
   //Eventually move this url to a settings file or somewhere where only one change needs to be made
-  // url = "http://localhost:8080";
-  url = environment.apiUrl;
+  url = "http://localhost:8080";
 
   ngOnInit(): void {
 
