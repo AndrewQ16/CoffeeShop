@@ -21,7 +21,7 @@ public class MenuController {
 
     private String menuQuery = "SELECT * FROM menu";
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @GetMapping(path="/menu")
     public List<Menu> getMenu(){
         System.out.println("Querying menu and returning it");

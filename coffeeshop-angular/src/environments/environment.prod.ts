@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  host: "localhost:8080"
+  apiUrl: "https://coffeeshop-backend-xmg6lxm7aa-uc.a.run.app"
 };

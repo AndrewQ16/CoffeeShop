@@ -1,78 +1,69 @@
-<form #guestForm="ngForm" (ngSubmit) = "guestOrder()">
-    <div class="form-group">
-        <label for="fname">First name</label>
-        <input type="text" class="form-control" id="fname"
-            required
-            [(ngModel)]="guest.fname" name="fname"
-            #fname="ngModel">
-        <div [hidden]="fname.valid || fname.pristine"
-            class="alert alert-danger">
-            First name is required
+
+<mat-grid-list cols="3" >
+    <mat-grid-tile>
+        <form #guestForm="ngForm" (ngSubmit) = "guestOrder()">
+            <div class="form-group">
+                <label for="fname">First name</label>
+                <input type="text" class="form-control" id="fname"
+                    required
+                    [(ngModel)]="guest.fname" name="fname"
+                    #fname="ngModel">
+                <div [hidden]="fname.valid || fname.pristine"
+                    class="alert alert-danger">
+                    First name is required
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="lname">Last name</label>
+                <input type="text" class="form-control" id="lname"
+                    required
+                    [(ngModel)]="guest.lname" name="lname"
+                    #lname="ngModel">
+                <div [hidden]="lname.valid || lname.pristine"
+                class="alert alert-danger">
+                Last name is required
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email"
+                    [(ngModel)]="guest.email" name="email"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    #email="ngModel">
+                <div [hidden]="email.valid || email.pristine" 
+                class="alert alert-danger">
+                Email is required
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-success not-allowed" [disabled]="!guestForm.form.valid">Submit</button>
+        </form>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <!-- Display Current order -->
+        <app-cart></app-cart>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <div *ngIf="IsOrderSubmitted">
+            <div *ngIf="order; else elseBlock">
+                Order processed!
+                <br>
+                Order Number: {{order.orderNumber}}
+                <br>
+                Confirmation email sent.
+            </div>
+
+            <ng-template #elseBlock>
+                <mat-spinner></mat-spinner>
+            </ng-template>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="lname">Last name</label>
-        <input type="text" class="form-control" id="lname"
-            required
-            [(ngModel)]="guest.lname" name="lname"
-            #lname="ngModel">
-        <div [hidden]="lname.valid || lname.pristine"
-        class="alert alert-danger">
-        Last name is required
-        </div>
-    </div>
+    </mat-grid-tile>
+</mat-grid-list>
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email"
-            [(ngModel)]="guest.email" name="email"
-            required
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" 
-        class="alert alert-danger">
-        Email is required
-        </div>
-    </div>
-    
-    <button type="submit" class="btn btn-success" [disabled]="!guestForm.form.valid">Submit</button>
-</form>
-
-<!-- Sign in or guest checkout -->
-
-<!-- <div>
-    <!-- Guest checkout -->
-    <!-- <mat-form-field #firstName appearance="fill">
-        <mat-label>First Name</mat-label>
-        <input matInput required [(ngModel)]="fname"  #first="ngModel" placeholder="Pierre" type="text"> -->
-        <!-- The condition below requires 'invalid' to be there too, otherwise the error will still appear even if there is a field -->
-        <!-- <mat-error *ngIf="first.invalid && (first.dirty || first.touched) && first.errors.required">Required</mat-error>
-    </mat-form-field> -->
-
-    <!-- <br>
-    <mat-form-field #lastName appearance="fill">
-        <mat-label>Last Name</mat-label>
-        <input matInput required [(ngModel)]="lname" #last="ngModel" placehold="Aubamayang" type="text"> -->
-        <!-- This way to check also works well to display the error. Will keep it this way for reference -->
-        <!-- <mat-error *ngIf="!last.length">Required</mat-error>
-    </mat-form-field>
-
-    <br>
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput required email pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="email" #_email="ngModel" type="email">
-
-        <mat-error 
-        *ngIf="_email.invalid && (_email.dirty || _email) && _email.errors.email">Required</mat-error>
-
-    </mat-form-field> -->
-    <!-- Disable button once clicked to process order but if order fails then provide some error handling. -->
-    <div>
-        <!-- <button type="submit" [disabled="!f.valid"]>Place order</button> -->
-    </div>
-<!-- </div> --
-
-<!-- Display Current order -->
-<app-cart></app-cart>
 

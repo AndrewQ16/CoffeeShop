@@ -22,22 +22,25 @@ export class CheckoutComponent implements OnInit {
 
   guest: Guest;
 
-  submitted = false;
-
   fname: string = "";
 
   lname: string = "";
 
   email: string = "";
 
+  IsOrderSubmitted: boolean;
+
   confirmation: Observable<Confirmation>;
 
-  onSubmit() { this.submitted = true };
+  order: Confirmation = null;
+
+  onSubmit() { this.IsOrderSubmitted = true };
 
   get diagnostic() { return JSON.stringify(this.guest); }
 
   ngOnInit(): void {
     this.guest = {fname:"", lname:"", email:""};
+    this.IsOrderSubmitted = false;
   }
 
 
@@ -46,7 +49,8 @@ export class CheckoutComponent implements OnInit {
    */
   guestOrder(){
     this.confirmation = this.orderService.guestOrder(this.guest.fname, this.guest.lname, this.guest.email);
-    this.confirmation.subscribe(x => console.log(x));
+    this.IsOrderSubmitted = true;
+    this.confirmation.subscribe(x => this.order = x);
   }
 
 }

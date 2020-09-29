@@ -163,7 +163,7 @@ export class OrderService {
 
   guestOrder(fname: string, lname: string, email: string){
     var date = new Date(Date.now());
-    var order: Orders = {fname:fname, lname:lname, email: email, isPayed:false, items: this.orderItems, date: date}
+    var order: Orders = {fname:fname, lname:lname, email: email, isPayed:false, items: this.orderItems, date: date, total: this.total}
 
     return this.http.post<Confirmation>(`${this.url}/guestOrder`, order, {responseType:"json"});
   } 

@@ -17,6 +17,8 @@ public class Orders {
 
     private Boolean isPayed;
 
+    private Double total;
+
     public Orders() {
 
     }
@@ -74,6 +76,16 @@ public class Orders {
     public void setIsPayed(Boolean isPayed) {
         this.isPayed = isPayed;
     }
+
+
+    public Double getTotal() {
+        return this.total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
 
     @Override
     public String toString(){

@@ -14,4 +14,6 @@ export interface Orders {
 
     isPayed: Boolean;
 
+    total: Number;
+
 }

@@ -36,7 +36,7 @@ public class OrderController {
     
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @PostMapping(path = "/guestOrder")
     public Confirmation sendConfirmation(@RequestBody Orders order) {
         System.out.println("Guest order processing...");
@@ -70,7 +70,7 @@ public class OrderController {
 
             
             //send email out of order
-            service.sendConfrmationMessage(order.getEmail(), retVal.getOrderNumber());
+            service.sendConfrmationMessage(order.getEmail(), order, retVal.getOrderNumber());
 
             //return confirmation object
             System.out.print("Order processed for #:" + retVal.getOrderNumber());

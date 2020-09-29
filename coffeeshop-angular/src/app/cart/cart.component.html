@@ -3,23 +3,26 @@
 <!--This header is when we eventually add the ability to  view combo items 
     <h2>Single items:</h2> -->
 <div *ngIf="getItemCart().length">
-    <li *ngFor="let item of getItemCart()">
-        {{item.name}} 
-        <div *ngIf="item.type == 'HC' || item.type == 'IC'">
-            Size: {{item.chosenOptions[0][1]}}
-            Creams: {{item.chosenOptions[1][1]}}, Sugars: {{item.chosenOptions[2][1]}}
-        </div>
-        <div>
-            Quantity: {{item.quantity}}
-            Price: {{item.totalCost | currency}}
-        </div>
-        
-        <div>
-            <button mat-button (click)="removeItemFromCart(item)">Remove</button>
-        </div>
-
-        <br>
-    </li>
+    <ul>
+        <li *ngFor="let item of getItemCart()">
+            {{item.name}} 
+            <div *ngIf="item.type == 'HC' || item.type == 'IC'">
+                Size: {{item.chosenOptions[0][1]}}
+                Creams: {{item.chosenOptions[1][1]}}, Sugars: {{item.chosenOptions[2][1]}}
+            </div>
+            <div>
+                Quantity: {{item.quantity}}
+                Price: {{item.totalCost | currency}}
+            </div>
+            
+            <div>
+                <button mat-button class="btn" (click)="removeItemFromCart(item)">Remove</button>
+            </div>
+    
+            <br>
+        </li>
+    </ul>
+    
 </div>
 
 Total: {{getTotal() | currency}}

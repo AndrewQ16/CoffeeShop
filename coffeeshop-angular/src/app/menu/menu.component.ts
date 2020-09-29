@@ -81,5 +81,18 @@ export class MenuComponent implements OnInit {
 
   }
 
+  getPriceForSize(drink: Menu): number {
+    if(drink.currentSize === "S") {
+      drink.price = +drink.productOptions[0][1];
+      return drink.price
+    } else if(drink.currentSize === "M") {
+      drink.price = +drink.productOptions[1][1];
+      return drink.price
+    } else {
+      //is a "L"
+      drink.price = +drink.productOptions[2][1];
+      return drink.price;
+    }
+  }
   
 }
